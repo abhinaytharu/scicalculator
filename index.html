@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumCalc | Premium Scientific Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Math&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX for Natural Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+    <!-- Math.js for robust scientific calculations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+</head>
+<body>
+    <div class="app-wrapper">
+        <div class="calculator-container">
+            <!-- Top Navigation Bar -->
+            <div class="top-nav">
+                <div class="brand">QUANTUM<span>CALC</span></div>
+                <div class="mode-indicators">
+                    <span id="shift-label" class="indicator">SHIFT</span>
+                    <span id="angle-label" class="indicator active">DEG</span>
+                    <span id="hyp-label" class="indicator">HYP</span>
+                </div>
+            </div>
+
+            <!-- Display Area -->
+            <div class="display-section">
+                <div class="screen-glass"></div>
+                <div class="screen-content">
+                    <div class="main-display" id="math-input-area"></div>
+                    <div class="result-display" id="math-result-area">0</div>
+                </div>
+            </div>
+
+            <!-- Main Button Matrix -->
+            <div class="keypad">
+                <!-- Row 1: Nav & Modifiers -->
+                <button class="key mod-key shift" data-key="shift">SHIFT</button>
+                <button class="key mod-key angle" data-action="toggle-angle" id="angle-btn">DEG</button>
+                <button class="key nav-key" data-action="up">▲</button>
+                <button class="key nav-key" data-action="down">▼</button>
+                <button class="key nav-key" data-action="left">◀</button>
+                <button class="key nav-key" data-action="right">▶</button>
+
+                <!-- Row 2: Scientific 1 -->
+                <button class="key sci-key" data-val="fraction">□/□</button>
+                <button class="key sci-key" data-val="sqrt">√</button>
+                <button class="key sci-key" data-val="square">x²</button>
+                <button class="key sci-key" data-val="pow">xʸ</button>
+                <button class="key sci-key" data-val="log">log</button>
+                <button class="key sci-key" data-val="ln">ln</button>
+
+                <!-- Row 3: Scientific 2 -->
+                <button class="key sci-key" data-val="sin">sin</button>
+                <button class="key sci-key" data-val="cos">cos</button>
+                <button class="key sci-key" data-val="tan">tan</button>
+                <button class="key sci-key" data-val="hyp">hyp</button>
+                <button class="key sci-key" data-val="(">(</button>
+                <button class="key sci-key" data-val=")">)</button>
+
+                <!-- Row 4: Numbers & Actions 1 -->
+                <button class="key num-key" data-val="7">7</button>
+                <button class="key num-key" data-val="8">8</button>
+                <button class="key num-key" data-val="9">9</button>
+                <button class="key action-key del" data-action="delete">DEL</button>
+                <button class="key action-key ac" data-action="clear">AC</button>
+                <button class="key sci-key" data-action="sd">S⇔D</button>
+
+                <!-- Row 5: Numbers & Actions 2 -->
+                <button class="key num-key" data-val="4">4</button>
+                <button class="key num-key" data-val="5">5</button>
+                <button class="key num-key" data-val="6">6</button>
+                <button class="key op-key" data-val="*">×</button>
+                <button class="key op-key" data-val="/">÷</button>
+                <button class="key mod-key mode" data-action="mode">MODE</button>
+
+                <!-- Row 6: Numbers & Actions 3 -->
+                <button class="key num-key" data-val="1">1</button>
+                <button class="key num-key" data-val="2">2</button>
+                <button class="key num-key" data-val="3">3</button>
+                <button class="key op-key" data-val="+">+</button>
+                <button class="key op-key" data-val="-">−</button>
+                <button class="key op-key" data-val="pi">π</button>
+
+                <!-- Row 7: Bottom -->
+                <button class="key num-key" data-val="0">0</button>
+                <button class="key num-key" data-val=".">.</button>
+                <button class="key op-key" data-val="exp">exp</button>
+                <button class="key op-key" data-val="e">e</button>
+                <button class="key op-key" data-val="ans">Ans</button>
+                <button class="key equal-key" data-action="equal">=</button>
+            </div>
+        </div>
+
+        <div class="shortcuts-panel">
+            <h2 class="panel-title">Keyboard Shortcuts</h2>
+            <div class="shortcut-list">
+                <div class="shortcut-item"><kbd>Enter</kbd> <span>Calculate</span></div>
+                <div class="shortcut-item"><kbd>Esc</kbd> <span>Clear All</span></div>
+                <div class="shortcut-item"><kbd>Backspace</kbd> <span>Delete</span></div>
+                <div class="shortcut-item"><kbd>V</kbd> <span>Toggle S⇔D</span></div>
+                <div class="shortcut-item"><kbd>Arrows</kbd> <span>Navigate</span></div>
+                <div class="shortcut-item"><kbd>Shift</kbd> <span>Shift Mode</span></div>
+                <div class="shortcut-item"><kbd>P</kbd> <span>Pi (π)</span></div>
+                <div class="shortcut-item"><kbd>E</kbd> <span>e (Euler)</span></div>
+                <div class="shortcut-item"><kbd>^</kbd> <span>Power</span></div>
+                <div class="shortcut-item"><kbd>/</kbd> <span>Fraction</span></div>
+                <div class="shortcut-item"><kbd>*</kbd> <span>Multiply</span></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
