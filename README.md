@@ -2,7 +2,7 @@
 
 QuantumCalc is a modern, high-performance web-based scientific calculator designed to provide a "Natural Math" experience. It mimics the behavior of high-end physical scientific calculators while leveraging the power of modern web technologies.
 
-![QuantumCalc Interface](Screenshot_20260419-132749.CalcES.png)
+![QuantumCalc Interface](img.png)
 
 ## ✨ Features
 
