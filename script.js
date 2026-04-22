@@ -388,7 +388,8 @@ function render() {
     try {
         const before = state.expression.slice(0, state.cursorPos);
         const after = state.expression.slice(state.cursorPos);
-        const placeholder = 'CURSORX';
+        // Use a spaced placeholder to prevent merging with tokens like 'pi'
+        const placeholder = ' CURSORX ';
         const tempExpr = before + placeholder + after;
         
         let renderExpr = tempExpr;
@@ -398,7 +399,9 @@ function render() {
 
         const node = math.parse(renderExpr);
         let tex = node.toTex({ parenthesis: 'keep', implicit: 'hide' });
-        tex = tex.replace(/CURSORX/g, '\\textcolor{#38bdf8}{|}');
+        
+        // Clean up the placeholder and handle potential spaces math.js might add
+        tex = tex.replace(/\s?CURSORX\s?/g, '\\textcolor{#38bdf8}{|}');
         katex.render(tex, inputArea, { throwOnError: false });
 
     } catch (e) {
